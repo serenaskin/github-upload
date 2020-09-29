@@ -1,0 +1,200 @@
+﻿
+@{
+    ViewBag.Title = "DropzonePicture";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .dropzone * {
+        box-sizing: border-box;
+    }
+
+    .file_manager .file {
+        position: relative;
+        border-radius: .55rem;
+        overflow: hidden;
+    }
+
+    .dz-details .file {
+        background: #ffffff;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+    }
+
+    .file_manager .file .hover {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        display: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .file_manager .file a:hover .hover {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .perakendezone .check {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        display: inline-block;
+    }
+
+    .file_manager .file .image, .file_manager .file .icon {
+        max-height: 180px;
+        overflow: hidden;
+        background-size: cover;
+        background-position: top;
+        text-align: center;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .file_manager .file .file-name {
+        padding: 10px;
+        border-top: 1px solid #f7f7f7;
+    }
+
+    .perakendezone .dz-remove {
+        display: none;
+    }
+</style>
+
+
+<div id="preview-template" style="display:none;" class="dz-preview dz-file-preview">
+    <div class="dz-details col-sm-6 col-md-3 m-b-15">
+        <div class="file">
+            <a href="javascript:void(0);">
+                <div class="hover">
+                    <button type="button" class="btn btn-icon btn-danger" data-dz-remove>
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+                <div class="check">
+                    <label class="fancy-radio"><input name="mediaselect" data-dz-id type="radio"><span><i></i>&nbsp;</span></label>
+                </div>
+                <div class="image">
+                    <img data-dz-thumbnail class="img-fluid">
+                </div>
+                <div class="file-name">
+                    <p class="m-b-5 text-muted"><span data-dz-name></span></p>
+                    <small>Size: <span data-dz-size></span> <span class="date text-muted">Dec 11, 2017</span></small>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+    <div class="dz-success-mark"><span>✔Ok</span></div>
+    <div class="dz-error-mark"><span>✘</span></div>
+    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+
+</div>
+
+
+<div class="row file_manager" id="dropzoneForm" style="overflow-y: auto;">
+    <div class="fallback">
+        <input name="file" type="file" multiple />
+        <input type="submit" value="Upload" />
+    </div>
+</div>
+
+<script>
+    jQuery(function ($) {
+        //burada Dropzone eklentisinin otomatik ayarları almasını engelliyoruz.
+        Dropzone.autoDiscover = false;
+        //ben tıklayarak yükleme fonksiyonunu istemediğim için burada "clickable" yani tıklanabilirliği false yapıyorum
+        Dropzone.clickable = false;
+
+        var uploader = $('#dropzoneForm').dropzone({
+            url: '/burada/MVC/Controller/Yolu/Olacak/ActionAdi',
+            clickable: false,
+            uploadMultiple: true,
+            addRemoveLinks: true,
+            previewTemplate: document.getElementById('preview-template').innerHTML,
+            accept: function (file, done) {
+                // eğer belirli uzantıda ki dosyaları yüklemek istiyorsak bu fonksiyonu kullanabiliriz, aksi taktirde direk bu bloğu silebilir
+                // yada bu bloğu boşaltabiliriz, ben sadece fotoğraf yükletmek istediğim için bu örnekten devam ediyorum.
+                var extension = file.name.substr((file.name.lastIndexOf('.') + 1));
+
+                if (extension == "JPEG" || extension == "JPG" || extension.toString().toLowerCase() == "jpeg" || extension.toString().toLowerCase() == "jpg" || extension == "PNG" || extension.toString().toLowerCase() == "png") {
+                    done();
+                }
+                else {
+                    done('Ha Ha, Bu Dosyayı Yükleyemezsin');
+                }
+            },
+            error: function (file) {
+                // bu kısımda eğer dosya yukarıda ki blokta hataya düşerse yükleme ekranımızda görünmemesini sağlayacak
+                if (!file.accepted) this.removeFile(file);
+            },
+            init: function () {
+                var mydropzone = this;
+                this.on("complete", function (data) {
+                    // bu fonksiyon ise yüklemesi başarıyla sonuçlanan dosyaların id lerini tanımladığımız
+                    // data-dz-id özelliğine sahip nesneye id yi tanımlayarak daha sonrasında kullanmamıza yarayacak. 
+                    if (data.accepted) {
+                        var res = JSON.parse(JSON.parse(data.xhr.responseText));
+                        $(data.previewElement).find("[data-dz-id]").attr('data-dz-id', res.item.id)
+                    }
+                });
+                this.on("addedfile", function (file) { console.log(file); $(file.previewElement).find("[data-dz-id]").attr('data-dz-id', file.id); });
+                this.on("error", function (file) { if (!file.accepted) this.removeFile(file); });
+
+                /*
+                  Aşağıda yazacağım ajax komutunun kullanımı tamamen keyfe kederdir, eğer daha önce
+                  yüklemiş olduğunuz dosyaları "Dropzone" elementinin içerisinde göstermek isterseniz
+                  kullanmanız gerekiyor, aksi taktirde kullanımı gereksiz kod kalabalığına yol açacaktır.
+                */
+                $.ajax({
+                    type: 'GET',
+                    url: '/Burada/Dosyaları/Cekecegimiz/Controller/Yolu/DosyaAction',
+                    contentType: 'application/json; charset=utf8',
+                    success: function (s) {
+                        var nesne = JSON.parse(s);
+                        console.log(nesne);
+                        /*
+                            gelen "s" parametresi için örnek çıktı
+                            {
+                                status: true,
+                                items: [
+                                  {
+                                    id: '1b9e00f5-ab7a-4122-9748-2c1ddd22df9e',
+                                    Ad: 'Dosya Adı',
+                                    Boyut: 1024, // Kilobyte cinsinden
+                                    Url: 'dosya url yolu'
+                                  }
+                                ]
+                            }
+                        */
+                        if (nesne.status) {
+                            for (var i = 0; i < nesne.items.length; i++) {
+                                var mockFile = { name: nesne.items[i].Ad, size: nesne.items[i].Boyut, id: nesne.items[i].Id };
+                                mydropzone.emit("addedfile", mockFile);
+                                mydropzone.emit("thumbnail", mockFile, (nesne.items[i].Url == null ? "https://via.placeholder.com/180/6c757d/343a40?text=Image%20Not%20Found" : nesne.items[i].Url));
+                                mydropzone.emit("complete", mockFile);
+                            }
+                        }
+                    },
+                    error: function (e) { }
+                });
+            },
+            removedfile: function (file) {
+                // ve son olarak dosya silme fonksiyonu
+                var name = file.name;
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Buraya/Dosyamızı/Silecek/Olan/Controller/Adı/SilmeActioni?id=' + $(file.previewElement).find("[data-dz-id]").attr('data-dz-id') + '&command=delete',
+                    contentType: 'application/json; charset=utf8',
+                    sucess: function (data) {
+                        console.log(data);
+                    }
+                });
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            }
+        });
+    });
+</script>

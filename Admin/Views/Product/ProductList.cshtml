@@ -1,0 +1,233 @@
+﻿@model List<SiteEcommerceProject.Entity.ProductModels.Product>
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    /*    .serenbtn {
+        text-align: center;
+    }*/
+
+    /*   .serenbtn:hover {
+            color: #212529;
+            background-color: oldlace;
+
+
+
+
+
+
+
+    border-color: oldlace;
+        }*/
+
+    /*   #border {
+        width: 100%;
+        border-style: solid;
+    }*/
+    /*sonradan ekledim*/
+    .srn {
+        width:auto;
+        margin: auto;
+    }
+</style>
+
+<section id="main-content">
+    <section class="wrapper">
+
+        <div class="srn row">
+            <div class="col-lg-12">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        @*<h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>*@
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a href="index.html">Ürünler</a></li>
+                            <li><i class="fa fa-laptop"></i>Ürün Listesi</li>
+                        </ol>
+                    </div>
+                </div>
+                <div style="text-align:center">
+                    <h3 class="page-header table-hover"><b> Ürün Listesi</b></h3>
+                </div>
+
+                <div>
+
+                    <a class="btn btn btn-info btn-lg text-left mt-auto" type="submit" href="/Product/ProductAdd">
+
+
+                        <i class="icon_plus_alt2"></i>Ürün Ekle
+                    </a>&nbsp;
+                    <a class="btn btn-success btn-lg text-left mt-auto" href="/Product/ProductUpdate">
+                        <i class="icon_check_alt2"></i>Ürün Güncelle
+                    </a>&nbsp;
+                    &emsp;
+
+
+                </div>
+
+
+
+                <table class="table table-striped table-advance table-hover" border="1" id="border">
+                    <tbody>
+
+
+                        <tr id="baslik">
+
+                            <th> Tümü<input class="checkbox form-control" data-val="true" data-val-required="Onay alanı gereklidir." id="agree" name="Onay" style="width: 20px" type="checkbox" value="true"></th>
+                            <th><i class="icon_camera"></i><b>Resim</b> </th>
+                            <th><i class="icon_camera"></i><b>Stok Kodu/Barkod</b> </th>
+                            <th><i class="icon_profile"></i><b>Ürün Adı </b> </th>
+                            <th><i class="icon_currency"></i> <b>Fiyat</b> </th>
+                            <th><i class="icon_bag_alt"></i> <b>Kategori</b> </th>
+                            <th><i class="icon_currency"></i> <b>Satışta mı?</b> </th>
+
+
+                        </tr>
+
+
+
+
+                        @foreach (var item in Model)
+                        {
+                    <tr id="text" border="1">
+
+                        <td>
+                            <input class="test checkbox form-control" data-val="true" data-val-required="Onay alanı gereklidir." id="agree" name="Onay" style="width: 20px" type="checkbox" value="true">
+                            <a href="/Product/UrunDetayi/@item.Id">
+                                <i class="icon_pencil-edit"></i>
+                            </a>
+                        </td>
+
+                        <td>
+
+                            <img src="https://localhost:44360/@item.Resim" style="width:85px; height:85px; position:relative; top:0px; left:0px;">
+
+                        </td>
+                        <td>
+                            @item.BarkodCode
+                        </td>
+                         <td>@item.StockCode</td>
+                        <td>@item.UrunAdi</td>
+                        <td>@item.Fiyat</td>
+                        <td>@item.Category.KategoriAdi</td>
+                        <td> @item.Onay </td>
+
+
+                        <td>
+                            <a class="btn btn-success" href="/Product/ProductUpdate?productid=@item.Id"><i class="icon_check_alt2"></i></a>
+
+                            <a class="btn btn-danger" href="/Product/SilOk?id=@item.Id"><i class="icon_close_alt2"></i></a>
+
+
+
+
+                            @*<form action="/Product/SilOk" method="post">
+                <div class="form-group">
+                    <label for="exampleInputEmail1" style="color: #394a59"><b></b></label>
+                    <input type="hidden" name="id" value="21">
+                    <button class="btn btn-danger" type="submit" name="Sil"><i class="icon_close_alt2"></i>   </button>
+                </div>
+            </form>*@
+                        </td>
+
+                    </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </section>
+
+</section>
+
+@section Scripts {
+    <script>
+        //knob
+        $(function () {
+            $(".knob").knob({
+                'draw': function () {
+                    $(this.i).val(this.cv + '%')
+                }
+            })
+        });
+
+        //carousel
+        $(document).ready(function () {
+            $("#owl-slider").owlCarousel({
+                navigation: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true
+
+            });
+        });
+
+        //custom select box
+
+        $(function () {
+            $('select.styled').customSelect();
+        });
+
+        /* ---------- Map ---------- */
+        $(function () {
+            $('#map').vectorMap({
+                map: 'world_mill_en',
+                series: {
+                    regions: [{
+                        values: gdpData,
+                        scale: ['#000', '#000'],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+                backgroundColor: '#eef3f7',
+                onLabelShow: function (e, el, code) {
+                    el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                }
+            });
+        });
+    </script>
+
+    <script>
+
+
+
+        $("#agree").click(function () {
+            console.log("sa");
+            if ($(this).is(':checked')) {
+                $(".checkbox").each(function (i, v) {
+                    $(v)[0].checked = true;
+                });
+            } else {
+                $(".checkbox").each(function (i, v) {
+                    $(v)[0].checked = false;
+                });
+            }
+
+        });
+
+
+        $('.sil').click(function () {
+            var list = $(".test[: checked]");
+            if (true) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Product/SilOk',
+                    data: 'id: ' + list,
+                    contentType: 'json',
+                    dataType: 'json'
+                });
+            }
+            else {
+                alert("Hata oluştu..");
+            }
+        });
+
+
+    </script>
+}

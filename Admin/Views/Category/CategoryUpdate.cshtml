@@ -1,0 +1,52 @@
+﻿@model List<SiteEcommerceProject.Entity.CategoryModels.Category>
+@{
+    ViewBag.Title = "CategoryUpdate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+            <li><i class="fa fa-laptop"></i>Dashboard</li>
+        </ol>
+    </div>
+</div>
+
+
+
+@using (@Html.BeginForm("CategoryUpdate", "Category", FormMethod.Post))
+{
+
+
+
+    <div class="input-group">
+        <label class="col-sm-4 control-label">Kategori Adı</label>
+        <div class="col-sm-10">
+            <input type="text" name="KategoriAdi" class="form-control input-lg m-bot20">
+        </div>
+    </div>
+    <br>
+
+    <div class="input-group">
+        @if (ViewBag.Result != null)
+        {
+            <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+        }
+
+    </div>
+
+}
+
+
+<div>
+    <a class="seren btn btn-info" ahref="/Category/CategoryUpdate?productid=">
+        Kategori Ekle
+    </a>
+</div>
+
+
+

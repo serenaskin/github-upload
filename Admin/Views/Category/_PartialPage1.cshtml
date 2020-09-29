@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "_PartialForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* @helper buttongetir(string styl = "background-color: chartreuse", string typ = "submit" , string cls= " btn-success")
+    {*@
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Style the input container */
+    .input-container {
+        display: flex;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    /* Style the form icons */
+    .icon {
+        padding: 10px;
+        background: dodgerblue;
+        color: white;
+        min-width: 50px;
+        text-align: center;
+    }
+
+    /* Style the input fields */
+    .input-field {
+        width: 1600px;
+        padding: 10px;
+        outline: none;
+    }
+
+        .input-field:focus {
+            border: 2px solid dodgerblue;
+        }
+
+    /* Set a style for the submit button */
+    .btn {
+        background-color: dodgerblue;
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+    }
+
+        .btn:hover {
+            opacity: 1;
+        }
+</style>
+
+@*@using (Html.BeginForm())
+    {*@
+
+<form>
+    <div class="container jumbotron text-center">
+        <h1>Üyelik Kayıt Formu</h1>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#loginModal"> Kaydolmak için </button>
+    </div>
+    <div class="modal fade" role="dialog" id="loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title"> Üye olmak için bilgileri doldurunuz. </h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body col-lg-offset-2">
+                    <div class="form-group">
+
+                        <h2> Kayıt Formu</h2>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Mail Adresi</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-envelope icon" aria-hidden="true"></i>
+                            @Html.TextBox("MailAdresi", "", "", new { @class = "input-field", placeholder = "Mail Adresiniz" })
+                            @*<input class="input-field" type="text" placeholder="Username" name="usrnm">*@
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain">  Şifre Giriniz</label>
+                        </div>
+                        <div class="input-container">
+
+                            <i class="fa fa-key icon"></i>
+                            @Html.TextBox("Password", "", new { @class = "input-field", placeholder = "*******" })
+                            @*<input class="input-field" type="text" placeholder="Username" name="usrnm">*@
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Şifre Tekrarı</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-key icon"></i>
+
+                            @Html.TextBox("Password", "", new { @class = "input-field", placeholder = "*******" })
+                            @*<input class="input-field" type="text" placeholder="Username" name="usrnm">*@
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Adınız - Soyadınız</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-user icon"></i>
+                            @Html.TextBox("KullanıcıSoyadiAdi", "", new { @class = "input-field", placeholder = "Adınız Soyadınız" })
+                            @*<input class="input-field" type="text" placeholder="Username" name="usrnm">*@
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Adınız - Soyadınız</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-building icon"></i>
+                            @Html.TextBox("KullaniciFirmaAdi", "", new { @class = "input-field", placeholder = "Firma Adınız" })
+                            @*<input class="input-field" type="text" placeholder="Email" name="email">*@
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Adınız - Soyadınız</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-home icon"></i>
+                            @Html.TextBox("Adres", "", new { @class = "input-field", placeholder = "Adres" })
+                            @*<input class="input-field" type="password" placeholder="Password" name="psw">*@
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Adınız - Soyadınız</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-university icon"></i>
+                            @Html.TextBox("<Il", "", new { @class = "input-field", placeholder = "İl" })
+                            @*<input class="input-field" type="password" placeholder="Password" name="psw">*@
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Adınız - Soyadınız</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-university icon"></i>
+                            @Html.TextBox("Ilce", "", new { @class = "input-field", placeholder = "İlçe" })
+                            @*<input class="input-field" type="password" placeholder="Password" name="psw">*@
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="eMailAgain"> Telefon</label>
+                        </div>
+                        <div class="input-container">
+                            <i class="fa fa-phone-square icon"></i>
+                            @Html.TextBox("Telefon", "", new { @class = "input-field", style = "width: 1600px;", placeholder = "Telefon" })
+                            @*<input class="input-field" type="password" placeholder="Password" name="psw">*@
+                        </div>
+                        @*<h2>Kullanıcı Bilgileri</h2>
+                                    <i class="fa fa-user icon"></i>
+                                    @Html.TextBox("KullanıcıSoyadiAdi", "", new { placeholder = "Adınız Soyadınız" })
+                                    <input type="text" name="username" class="form-control" placeholder="Kullanıcı Adı" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-user icon"></i>
+                                    @Html.TextBox("KullaniciFirmaAdi", "", new { placeholder = "Firma Adınız" })
+                                    <input type="password" name="password" class="form-control" placeholder="Kullanıcı Şifresi" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-user icon"></i>
+                                    @Html.TextBox("Adres", "", new { placeholder = "Soyadınız" })
+                                    <input type="password" name="password" class="form-control" placeholder="Kullanıcı Şifresi" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-user icon"></i>
+                                    @Html.TextBox("<Il", "", new { placeholder = "Soyadınız" })
+                                    <input type="password" name="password" class="form-control" placeholder="Kullanıcı Şifresi" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-user icon"></i>
+                                    @Html.TextBox("Ilce", "", new { placeholder = "Soyadınız" })
+                                    <input type="password" name="password" class="form-control" placeholder="Kullanıcı Şifresi" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-user icon"></i>
+                                    @Html.TextBox("Telefon", "", new { placeholder = "Soyadınız" })
+                                    <input type="password" name="password" class="form-control" placeholder="Kullanıcı Şifresi" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-user icon"></i>
+                                    @Html.TextBox("KullaniciSoyadi", "", new { placeholder = "Soyadınız" })
+                                    <input type="password" name="password" class="form-control" placeholder="Kullanıcı Şifresi" />
+                                </div>
+                            </div>*@
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success"> Kayıt ol </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+

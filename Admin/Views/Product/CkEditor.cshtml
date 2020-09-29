@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "CkEditor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    @*<base href="https://demos.telerik.com/kendo-ui/editor/index">*@
+    <style>
+        html {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+
+    @*Kendo CkEditor library*@
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.default-v2.min.css" />
+
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jquery.min.js"></script>
+
+
+    <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>
+
+
+
+</head>
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                    <li><i class="fa fa-laptop"></i>Dashboard</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="example" class="demo-section editor">
+            <textarea id="editor" rows="10" cols="30" style="width:100%; height:840px" aria-label="editor">
+    </textarea>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+<script>
+    var editor = $("#editor").kendoEditor({
+        stylesheets: [
+            "../content/shared/styles/editor.css",
+        ],
+        tools: [
+            "bold",
+            "italic",
+            "underline",
+            "justifyLeft",
+            "justifyCenter",
+            "justifyRight",
+            "insertUnorderedList",
+            "createLink",
+            "unlink",
+            "insertImage",
+            "tableWizard",
+            "createTable",
+            "addRowAbove",
+            "addRowBelow",
+            "addColumnLeft",
+            "addColumnRight",
+            "deleteRow",
+            "deleteColumn",
+            "mergeCellsHorizontally",
+            "mergeCellsVertically",
+            "splitCellHorizontally",
+            "splitCellVertically",
+            "formatting",
+            {
+                name: "fontName",
+                items: [
+                    { text: "Andale Mono", value: "Andale Mono" },
+                    { text: "Arial", value: "Arial" },
+                    { text: "Arial Black", value: "Arial Black" },
+                    { text: "Book Antiqua", value: "Book Antiqua" },
+                    { text: "Comic Sans MS", value: "Comic Sans MS" },
+                    { text: "Courier New", value: "Courier New" },
+                    { text: "Georgia", value: "Georgia" },
+                    { text: "Helvetica", value: "Helvetica" },
+                    { text: "Impact", value: "Impact" },
+                    { text: "Symbol", value: "Symbol" },
+                    { text: "Tahoma", value: "Tahoma" },
+                    { text: "Terminal", value: "Terminal" },
+                    { text: "Times New Roman", value: "Times New Roman" },
+                    { text: "Trebuchet MS", value: "Trebuchet MS" },
+                    { text: "Verdana", value: "Verdana" },
+                ]
+            },
+            "fontSize",
+            "foreColor",
+            "backColor",
+        ]
+    });
+</script>
+
+}
+

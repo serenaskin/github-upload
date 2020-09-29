@@ -1,0 +1,109 @@
+﻿@model SiteEcommerceProject.Entity.BrandModels.Brand
+@{
+    ViewBag.Title = "BrandAdd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .row {
+        width: 100%;
+    }
+
+    .seren {
+        text-decoration-color: aliceblue;
+        text-align: center;
+        height: 30px;
+        width: 100px;
+        background-color: dodgerblue;
+        margin: auto !important;
+    }
+    .modal-dialog {
+        position: relative;
+        display: table;
+        overflow-y: auto;
+        overflow-x: auto;
+        width: auto;
+        min-width: 300px;
+    }
+</style>
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                <ol class="breadcrumb">
+                    <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                    <li><i class="fa fa-laptop"></i>Dashboard</li>
+                </ol>
+            </div>
+        </div>
+
+        <div style="text-align:center">
+            <h3 class="page-header table-hover"><b> Marka Ekleme </b></h3>
+        </div>
+
+        @using (Html.BeginForm("BrandAdd", "Brand", FormMethod.Post))
+        {
+            <a href="#myModal" data-toggle="modal" class="btn btn-primary">
+                Marka Ekle
+            </a>
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                <div class="modal-lg m-auto">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button id="btnHideModal" aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                            <h4 class="modal-title">.</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Marka Adı</label>
+                                    <input type="text" name="KategoriAdi" class="form-control input-lg m-bot20">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Resim Ekle</label>
+                                    <input type="file" id="exampleInputFile3">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            $("#myModal").click(function () {
+                $("#loginModal").modal('show');
+            });
+
+            $("#btnHideModal").click(function () {
+                $("#loginModal").modal('hide');
+            });
+        });
+
+                                //$(window).load(function () {
+                                //    $('#myModal').modal('show');
+                                //});
+                                //$(function () {
+                                //    $('#modal').modal('toggle');
+                                //});
+
+    </script>
+
+

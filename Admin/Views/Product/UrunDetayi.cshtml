@@ -1,0 +1,789 @@
+﻿@model SiteEcommerceProject.Entity.ProductModels.Product
+@{
+    ViewBag.Title = "UrunDetayi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+
+    <title></title>
+
+    @*<base href="https://demos.telerik.com/kendo-ui/editor/index">
+        <script src="https://kendo.cdn.telerik.com/2020.2.617/js/jquery.min.js"></script>
+        <script src="https://kendo.cdn.telerik.com/2020.2.617/js/kendo.all.min.js"></script>*@
+    <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+
+
+    @*new*@
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
+    @*<link href="~/Content/bootstrap-fileinput-master/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />*@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    @*<link href="~/Content/bootstrap-fileinput-master/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css" />*@
+    @*Old 2 lib*@
+
+
+    @*Dropzone*@
+    @*<link href="~/Scripts/dropzone/basic.css" rel="stylesheet" />
+        <link href="~/Scripts/dropzone/dropzone.css" rel="stylesheet" />
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Content/Dropzone/dropzone.js"></script>*@
+
+    @*En son eklenen Console dan yüklenen install-package Microsoft.jQuery.Unobtrusive.Ajax library ve dropzone library*@
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="~/Scripts/dropzone/dropzone.min.js"></script>*@
+
+</head>
+
+
+
+
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+                        <ol class="breadcrumb">
+                            <li><i class="fa fa-home"></i><a href="index.html">Home</a></li>
+                            <li><i class="fa fa-laptop"></i>Dashboard</li>
+                        </ol>
+                    </div>
+                </div>
+
+
+
+                <section class="panel" id="border">
+                    <div style="text-align:center">
+                        <h3 class="page-header table-hover"><b> Ürün Detayı</b></h3>
+                    </div>
+
+
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 ">
+                                <nav>
+                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"> <strong>Genel </strong></a>
+                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><strong> Açıklama</strong></a>
+                                        <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false"><strong>Fiyat</strong></a>
+                                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><strong>Resim</strong></a>
+                                    </div>
+                                </nav>
+
+
+                                @using (@Html.BeginForm("UrunDetayi", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+
+
+
+                                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+
+
+
+
+
+                                        <div class="tab-pane fade show active in" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="uclukcol1 col-lg-9">
+
+
+                                                        <div class="form-group">
+                                                            <label style="color: #394a59"><b></b></label>
+                                                            @Html.HiddenFor(x => x.Id)
+                                                            @*<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>*@
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label style="color: #394a59"><b>Ürün Adı</b></label>
+                                                            @Html.TextBoxFor(x => x.UrunAdi, new { @class = "form-control", placeholder = "Ürün Adı Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+
+                                                            <small  class="form-text text-muted">Ürünün stok adını,özelliklerini giriniz.</small>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label style="color: #394a59"><b>Ürün Adı Alt Başlığı</b></label>
+                                                            @Html.TextBoxFor(x => x.Subtitle, new { @class = "form-control", placeholder = "Ürün Adı Alt Başlığı Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label style="color: #394a59"><b>Stok Miktarı</b></label>
+                                                            @Html.TextBoxFor(x => x.StokAmount, new { @class = "form-control", placeholder = "Stok Miktarı Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label style="color: #394a59"><b>Stok Kodu</b></label>
+                                                            @Html.TextBoxFor(x => x.StockCode, new { @class = "form-control", placeholder = "Stok Kodu Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label style="color: #394a59"><b>Barkod Kodu</b></label>
+                                                            @Html.TextBoxFor(x => x.BarkodCode, new { @class = "form-control", placeholder = "Barkod Kodu Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                        </div>
+
+                                                        @*<div class="form-group">
+            <label for="exampleInputEmail1" style="color: #394a59"><b>Barkod</b></label>
+            @Html.TextBoxFor(x => x.BarkodCode, new { @class = "form-control", placeholder = "Barkod Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+        </div>*@
+
+                                                        @*<div class="form-group">
+            <label class="form-check-label" for="exampleCheck1" style="color: #394a59"> <b>Ürün Fiyatı</b> </label>
+            @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control", placeholder = "Ürün Fiyatı Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+        </div>*@
+                                                        @*<div class="form-group">
+            <label for="exampleInputPassword1" id="design" style="color: #394a59"><b>Ürün Açıklaması</b></label>
+            @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control", placeholder = "Ürün Açıklaması Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+        </div>*@
+
+                                                        <button type="submit" class="btn btn-info" href="/Product/ProductAdd">Ürün Ekle</button>
+
+                                                        <button type="submit" class="btn btn-success">Kaydet </button>
+
+                                                        <a class="btn btn-danger" href="/Product/SilOk?id=@Model.Id">  Sil  <i class="icon_close_alt2"></i></a>
+
+                                                    </div>
+
+
+                                                    <div class="uclukcol2 col-lg-2">
+                                                        <div class="btn-group">
+                                                            <hr />
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+
+                                                                    <div class="col-lg-6">
+                                                                        <p><b>Kategori:</b></p>
+                                                                        <div class="form-group">
+                                                                            <div class="col-md-5">
+
+                                                                                @Html.DropDownList("Category_Id", new SelectList(ViewBag.categoryservice, "Id", "KategoriAdi"))
+                                                                                @*new SelectList(ViewBag., "district_id", "district_name", Model.Districts)*@
+                                                                                @*@Html.DropDownListFor(x => Model.KategoriAdi, new SelectList(Model.KategoriAdi))*@
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <p><b>Marka:</b></p>
+                                                                        <div class="form-group">
+                                                                            <div class="col-md-5">
+
+                                                                                @Html.DropDownList("Brand_Id", new SelectList(ViewBag.brandservice, "Id", "BrandName"))
+
+                                                                                @*@Html.DropDownListFor(x => Model.KategoriAdi, new SelectList(Model.KategoriAdi))*@
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </table>
+
+                                                                <div class="row">
+                                                                    <div class="table-responsive">
+                                                                        <table>
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1" style="color: #394a59"><b>Desi Miktarı</b></label>
+                                                                                @Html.TextBoxFor(x => x.CargoAmount, new { @class = "form-control", placeholder = "Desi Miktarı Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1" style="color: #394a59"><b>Kargo Ücreti</b></label>
+                                                                                @Html.TextBoxFor(x => x.CargoPrice, new { @class = "form-control", placeholder = "Kargo Ücreti Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputEmail1" style="color: #394a59"><b>Ürün Notu</b></label>
+                                                                                @Html.TextBoxFor(x => x.ProductCargoNote, new { @class = "form-control", placeholder = "Ürün Notu Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                                            </div>
+
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                @*CkEditor*@
+                                                                <textarea class="ckeditor" name="editor1" style="margin-top:auto;">
+
+                                                                     @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control", placeholder = "Ürün Açıklaması Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+                                                                 </textarea>
+
+                                                                <button type="submit" class="btn btn-info" href="/Product/ProductAdd">Ürün Ekle</button>
+
+                                                                <button type="submit" class="btn btn-success">Kaydet </button>
+
+                                                                <a class="btn btn-danger" href="/Product/SilOk?id=@Model.Id">  Sil  <i class="icon_close_alt2"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                        @*Fiyat*@
+
+                                        <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label class="form-check-label" for="exampleCheck1" style="color: #394a59"> <b>Ürün Fiyatı</b> </label>
+                                                        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control", placeholder = "Ürün Fiyatı Giriniz:", aria_describedby = "txt-urun", cols = "30", rows = "10" })
+
+                                                        <br />
+
+                                                        <button type="submit" class="btn btn-info" href="/Product/ProductAdd">Ürün Ekle</button>
+
+                                                        <button type="submit" class="btn btn-success">Kaydet </button>
+
+                                                        <a class="pictureDelete btn btn-danger" href="/Product/SilOk?id=@Model.Id">  Sil  <i class="icon_close_alt2"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        @*Dropzone*@
+                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <section>
+
+                                                        <h1 id="try-it-out">Dosyaları buraya yükleyiniz!</h1>
+
+                                                        <div id="dropzone" class="dropzone js-dropzone-upload ">
+                                                            <form action="~/Product/UrunDetayi" class="dropzone needsclick dz-clickable" id="demo-upload">
+
+                                                                <div class="col-md-10">
+                                                                    <input type="file" multiple name="files" id="Files" />
+                                                                </div>
+                                                                <div class="dz-message needsclick">
+                                                                    <input type="submit" value="Resimleri Yükle" class="btn btn-secondary" />
+                                                                    <br />
+
+                                                                    @ViewBag.UploadStatus
+                                                                    @*@item.*@
+                                                                    @*<button type="button" class="dz-button">Drop files here or click to upload.</button><br>*@
+
+
+
+
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </section>
+
+                                                    @if (Model.pictures != null && Model.pictures.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.pictures)
+                                                        {
+                                                            <div id="DropzoneId">
+
+                                                                <h2 style="text-align:center" id="Yuklenenler">Yüklenenler</h2>
+
+                                                                <div class="card">
+                                                                    <!--<img src="https://localhost:44360/@item.PictureUrl"--> @*draggable="true" ondragstart="drag(event)"*@ @*alt="Avatar"*@ <!--style="width:150px">-->
+                                                                    <div id="DropzoneId" class="Seroshina-@item.PictureId">
+                                                                        <img src="https://localhost:44360/@item.PictureUrl" draggable="true" ondragstart="drag(event)" alt="Avatar" style="width:150px">
+                                                                        <button class="btn btn-danger" onclick="DropzoneRemovePicture(@item.PictureId, this)"><i class="icon_close_alt2"></i></button>
+
+
+                                                                    </div>
+
+                                                                    @*<a class="EkleBtn btn-secondary" href="/Product/UrunDetayi?pictures=@item.PictureId"> <i class="icon_check_alt2"></i></a>*@
+                                                                    @*<a class="pictureDelete btn btn-danger" href="/Product/SilOk?ProductId=@item.PictureId">  Sil  <i class="icon_close_alt2"></i></a>*@
+
+                                                                    @*<button class="btn btn-danger" onclick="DropzoneRemovePicture(@item.PictureId)"><i class="icon_close_alt2"></i></button>*@
+
+                                                                </div>
+                                                            </div>
+
+                                                        }
+
+
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+
+@section Scripts {
+    @*Murat Başeren libs*@
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+        <script src="~/Content/Dropzone/dropzone-amd-module.js"></script>*@
+    <script src="~/Content/Dropzone/dropzone.js"></script>
+    @*Sonradan ysuf beyden aldıklarm*@
+    @*<script src="https://content.magenty.com/static/plugins/dropzone/dropzone.min.js"></script>*@
+    @*Sonradan tab için eklendi alttaki ikisi*@
+    @*<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+
+
+
+
+    <script>
+
+        //CkEditor
+        //CKEDITOR.replace('editor1');
+
+        //CkEditorEnd
+
+
+    </script>
+
+
+    @*Drop-Drog script on first Turkcell*@
+
+
+    @*<script type="text/javascript">
+        function dragStart(ev) {
+            ev.dataTransfer.effectAllowed = 'move';
+            ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+            ev.dataTransfer.setDragImage(ev.target, 0, 0);
+            return true;
+            function drag(event) {
+                event.dataTransfer.setData("Text", event.target.id);
+            }
+        }
+        //End Turkcell*@
+
+    <script>
+        //Here is dropzone delete multiple last version
+        //Dropzone.autoDiscover = false;
+        //$(function () {
+        //    var dz = null;
+
+        //    $("#mydropzone").dropzone({
+        //        autoProcessQueue: false,
+        //        paramName: "productpictures",
+        //        maxFilesize: 1, //mb
+        //        maxThumbnailFilesize: 1, //mb
+        //        maxFiles: 10,
+        //        parallelUploads: 10,
+        //        acceptedFiles: ".jpeg,.png,.jpg",
+        //        uploadMultiple: true,
+        //        addRemoveLinks: true,
+        //        //resizeWidth:128,
+        //        init: function () {
+        //            dz: this;
+        //            $("#uploadbutton").click(function () {
+        //                dz.processQueue();
+        //            });
+        //        },
+        //        dictDefaultMessage: "Buraya görselleri sürükle-bırak yapabilirsiniz..",
+        //        dictRemoveFile: "Dosyayı sil.."
+
+
+        //    });
+
+
+
+        //Done it with Sameto
+        $('#DropzoneRemovePicture').click(function (e) {
+            e.preventDefault();
+            console.log(e);
+            var id = $(e.srcElement).attr("data-id");
+
+            $.ajax({
+                url: "/Product/DropzoneDelete",
+                type: "POST",
+                data: { id: id },
+                success: function (data) {
+                    $(`.Seroshina-${id}`).remove();
+                },
+                error: function () {
+
+                }
+            });
+
+            e.preventDefault();
+        });
+                    //});
+
+
+
+
+    </script>
+
+
+    @*//Dropzone.autoDiscover = false;
+        //$(function () {
+        //    var dz = null;
+
+        //    $("#mydropzone").dropzone({
+        //        autoProcessQueue: false,
+        //        paramName: "productpictures",
+        //        maxFilesize: 1, //mb
+        //        maxThumbnailFilesize: 1, //mb
+        //        maxFiles: 10,
+        //        parallelUploads: 10,
+        //        acceptedFiles: ".jpeg,.png,.jpg",
+        //        uploadMultiple: true,
+        //        addRemoveLinks: true,
+        //        //resizeWidth:128,
+        //        init: function () {
+        //            dz: this;
+        //            $("#uploadbutton").click(function () {
+        //                dz.processQueue();
+        //            });
+        //        },
+        //        dictDefaultMessage: "Buraya görselleri sürükle-bırak yapabilirsiniz..",
+        //        dictRemoveFile: "Dosyayı sil.."
+
+
+        //    });
+
+
+        //});
+
+        // This prevents Dropzone to autodiscover the elements,
+        // allowing you to better control it.
+        //Dropzone.autoDiscover = false;
+
+        //Array.prototype.slice.call(document.querySelectorAll('.js-dropzone-upload'))
+        //    .forEach(element => {
+        //        var myDropzone = new Dropzone(element, {
+        //            url: "/Product/ACTİON", maxFilesize: 10, addRemoveLinks: true, maxFiles: 1,
+        //            //Omit the "headers" in case you don't need it.
+        //            headers: { "__RequestVerificationToken": document.getElementsByName("__RequestVerificationToken")[1]).value
+        //    },
+        //      ,});
+        //myDropzone.on("success", function (response) {
+        //    document.getElementById('eMediaID').value = response.xhr.response.replace(/\"/g, "");
+        //});
+
+
+        //Dropzone
+        //eski
+        //function Delete() {
+
+
+        //    $("a.pictureDelete").each(function () {
+        //        var Id = $(this).data("model-id");
+        //        var url = "/Product/UrunDetayi/" + PictureId;
+        //        $.ajax({
+        //            url: url,
+        //            type: "POST",
+
+        //            success: function () {
+
+        //                $("#DropzoneId").load(window.location + " #DropzoneId");
+        //            },
+
+        //            error: function () {
+        //                alert("Fails");
+        //            }
+
+        //        });
+
+        //    });
+
+        //};
+
+
+        //Yeni sAMETİN KODLARI
+        //function DropzoneRemovePicture() {
+        //    $(#DropzoneRemovePicture)
+        //}*@
+
+}
+
+@section customcss {
+
+    <style>
+
+        /*        Turkcell drog-drop*/
+        #KUTU1, #KUTU2 {
+            float: left;
+            padding: 10px;
+            margin: 10px;
+            -moz-user-select: none;
+        }
+
+        #KUTU1 {
+            background-color: #6633EF;
+            width: 85px;
+            height: 85px;
+        }
+
+        #KUTU2 {
+            background-color: #FF6699;
+            width: 160px;
+            height: 170px;
+        }
+        /*End Turkcell*/
+
+        EkleBtn {
+            color: cadetblue;
+        }
+
+        #Yuklenenler {
+            color: #7E7E7E;
+        }
+
+        html {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .ctgrybrnd {
+            border-bottom: 0;
+            padding: 0;
+            margin-bottom: 0;
+            color: #fff;
+            display: block;
+        }
+
+        .linkss {
+            height: 50px;
+            width: 150px;
+            text-decoration: wavy;
+        }
+
+
+
+        /*    .dz-max-files-reached {
+                    background-color: red;
+                }*/
+
+
+        .dropzone * {
+            box-sizing: border-box;
+        }
+
+        .file_manager .file {
+            position: relative;
+            border-radius: .55rem;
+            overflow: hidden;
+        }
+
+        .dz-details .file {
+            background: #ffffff;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+        }
+
+        .file_manager .file .hover {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            display: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .file_manager .file a:hover .hover {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .perakendezone .check {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            display: inline-block;
+        }
+
+        .file_manager .file .image, .file_manager .file .icon {
+            max-height: 180px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: top;
+            text-align: center;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .file_manager .file .file-name {
+            padding: 10px;
+            border-top: 1px solid #f7f7f7;
+        }
+
+        .perakendezone .dz-remove {
+            display: none;
+        }
+
+        /*Start thead table css*/
+        nav > .nav.nav-tabs {
+            border: none;
+            color: cadetblue;
+            background: #272e38;
+            border-radius: 0;
+        }
+
+        nav > div a.nav-item.nav-link,
+        nav > div a.nav-item.nav-link.active {
+            border: none;
+            padding: 18px 25px;
+            color: cadetblue;
+            background: #394a59;
+            border-radius: 0;
+        }
+
+            nav > div a.nav-item.nav-link.active:after {
+                content: "";
+                position: relative;
+                bottom: -60px;
+                left: -10%;
+                border: 15px solid transparent;
+                border-top-color: #e9ecef;
+            }
+
+        .tab-content {
+            background: #fdfdfd;
+            line-height: 25px;
+            border: 1px solid #ddd;
+            border-top: 5px solid #e9ecef;
+            border-bottom: 5px solid #e9ecef;
+            padding: 30px 25px;
+        }
+
+        nav > div a.nav-item.nav-link:hover,
+        nav > div a.nav-item.nav-link:focus {
+            border: none;
+            background: #e9ecef;
+            color: cadetblue;
+            border-radius: 0;
+            transition: background 0.20s linear;
+        }
+
+        .ckeditor {
+            margin: 0px;
+        }
+
+        border {
+            margin-top: auto;
+        }
+        /*new Dropzone*/
+
+        .dropzone.dz-clickable {
+            cursor: pointer;
+        }
+
+        /*New css on first for dropzone*/
+        #dropzone {
+            width: 100%;
+            min-height: 150px;
+            border: 3px dashed rgba(0, 0, 0, .3);
+            border-radius: 5px;
+            font-family: Arial;
+            text-align: center;
+            position: relative;
+            font-size: 20px;
+            color: #7E7E7E;
+        }
+
+        /*        .dropzone {
+                border: 2px dashed #0087F7;
+                border-radius: 5px;
+                background: white;
+            }
+
+            .dropzone {
+                min-height: 150px;
+                border: 2px solid rgba(0, 0, 0, 0.3);
+                background: white;
+                padding: 54px 54px;
+            }*/
+
+        .dropzone, .dropzone * {
+            box-sizing: border-box;
+        }
+
+            .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
+                cursor: pointer;
+            }
+
+            .dropzone .dz-message {
+                font-weight: 400;
+            }
+
+            .dropzone .dz-message {
+                text-align: center;
+                margin: 2em 0;
+            }
+
+            .dropzone.dz-clickable * {
+                cursor: default;
+            }
+
+            .dropzone, .dropzone * {
+                box-sizing: border-box;
+            }
+
+        /* button {
+                    appearance: button;
+                    -webkit-writing-mode: horizontal-tb !important;
+                    text-rendering: auto;
+                    color: -internal-light-dark(black, white);
+                    letter-spacing: normal;
+                    word-spacing: normal;
+                    text-transform: none;
+                    text-indent: 0px;
+                    text-shadow: none;
+                    display: inline-block;
+                    text-align: center;
+                    align-items: flex-start;
+                    cursor: default;
+                    background-color: internal light dark(rgb(239, 239, 239), rgb(59, 59, 59));
+                    box-sizing: border-box;
+                    margin: 0em;
+                    font: 400 13.3333px Arial;
+                    padding: 1px 6px;
+                    border-width: 2px;
+                    border-style: outset;
+                    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+                    border-image: initial;
+                }*/
+        /*End thead table css */
+    </style>
+
+
+    @*Dropzone*@
+
+    @*CkEditor Library*@
+    <link href="~/Content/Dropzone/basic.css" rel="stylesheet" />
+    <link href="~/Content/Dropzone/dropzone.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.common.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.default.min.css" />
+        <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.default.mobile.min.css" />*@
+    @*Eski css lib*@
+    @*<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2020.2.617/styles/kendo.default-v2.min.css" />*@
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,300italic|Inconsolata:400,700" rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/min/dropzone.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/min/basic.min.css" />
+    <link href="~/Content/NiceAdmin/assets/ckeditor/skins/moono/editor.css" rel="stylesheet" />
+    @*Alttaki 4.1.1,alttaki bitane kütüphane,tab için eklendi*@
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+
+
+
+}
+
+
+
+
+
